@@ -1,0 +1,51 @@
+/* Login form */
+.login_main {
+   -fx-background-color: #fff;
+}
+
+.logo {
+   -fx-text-fill: #005000;
+   -fx-font-family: sans-serif;
+   -fx-font-size: 25px;
+   -fx-font-weight: 900;
+}
+
+.btnLogin {
+   -fx-background-color: #005000;
+   -fx-text-fill: #fff;
+   -fx-font-family: sans-serif;
+   -fx-font-size: 16px;
+   -fx-background-radius: 20px;
+}
+
+.btnLogin:hover {
+   -fx-background-color: #007000;
+}
+
+.txtLogin {
+   -fx-font-family: sans-serif;
+   -fx-font-size: 14px;
+   -fx-text-fill: #005000;
+   -fx-border-color: #005000;
+   -fx-background-color: #fff;
+   -fx-background-radius: 20px;
+   -fx-border-radius: 20px;
+   -fx-prompt-text-fill: #00600080;
+   -fx-padding: 0 20px;
+}
+
+.links {
+   -fx-text-fill: #005000;
+}
+
+.box1 {
+   -fx-background-color: #005000;
+}
+
+.box2 {
+   -fx-background-color: #00500080;
+}
+
+.box3 {
+   -fx-background-color: #00500070;
+}

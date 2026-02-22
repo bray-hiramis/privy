@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="274.0" prefWidth="467.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="63.0" layoutY="19.0" styleClass="logo" text="Privy" />
+      <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../logo/privy-logo.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="txtUsername" layoutX="87.0" layoutY="104.0" prefHeight="36.0" prefWidth="294.0" promptText="Username" styleClass="txtLogin" />
+      <PasswordField fx:id="txtPassword" layoutX="87.0" layoutY="148.0" prefHeight="36.0" prefWidth="294.0" promptText="Password" styleClass="txtLogin" />
+      <Button fx:id="btnLogin" layoutX="87.0" layoutY="191.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="294.0" styleClass="btnLogin" text="Login">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Hyperlink layoutX="14.0" layoutY="244.0" styleClass="links" text="Create New Account">
+         <font>
+            <Font name="Roboto Regular" size="14.0" />
+         </font>
+      </Hyperlink>
+      <Hyperlink layoutX="252.0" layoutY="244.0" styleClass="links" text="Forgot Username or Password?">
+         <font>
+            <Font name="Roboto Regular" size="14.0" />
+         </font>
+      </Hyperlink>
+      <Label layoutX="146.0" layoutY="70.0" text="Login to your Account" textFill="#005000">
+         <font>
+            <Font name="Roboto Regular" size="18.0" />
+         </font>
+      </Label>
+      <Pane layoutX="414.0" layoutY="-62.0" prefHeight="124.0" prefWidth="124.0" styleClass="box1" />
+      <Pane layoutX="393.0" layoutY="-41.0" prefHeight="124.0" prefWidth="124.0" styleClass="box2" />
+      <Pane layoutX="376.0" layoutY="-24.0" prefHeight="124.0" prefWidth="124.0" styleClass="box3" />
+   </children>
+</AnchorPane>

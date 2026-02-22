@@ -1,0 +1,31 @@
+# --- Build Outputs ---
+# Exclude the entire target folder (compiled code, JARs)
+target/
+
+# Exclude your generated installers
+*.deb
+*.rpm
+*.exe
+*.msi
+*.dmg
+
+# --- IDE Specific Files ---
+# Exclude Eclipse specific settings
+.settings/
+.classpath
+.project
+# Exclude any other IDE metadata (like IntelliJ or VS Code)
+.idea/
+*.iml
+.vscode/
+
+# --- Database & Data ---
+# Exclude your local database file so everyone starts with a clean slate
+# tshirt_data.db
+
+# Exclude temporary or dependency-reduced files from Maven
+dependency-reduced-pom.xml
+
+# --- OS Generated Files ---
+.DS_Store
+Thumbs.db
