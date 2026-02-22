@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="274.0" prefWidth="467.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="274.0" prefWidth="467.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.privy.controller.LoginController">
    <children>
       <Label layoutX="63.0" layoutY="19.0" styleClass="logo" text="Privy" />
       <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
@@ -23,7 +22,7 @@
       </ImageView>
       <TextField fx:id="txtUsername" layoutX="87.0" layoutY="104.0" prefHeight="36.0" prefWidth="294.0" promptText="Username" styleClass="txtLogin" />
       <PasswordField fx:id="txtPassword" layoutX="87.0" layoutY="148.0" prefHeight="36.0" prefWidth="294.0" promptText="Password" styleClass="txtLogin" />
-      <Button fx:id="btnLogin" layoutX="87.0" layoutY="191.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="294.0" styleClass="btnLogin" text="Login">
+      <Button fx:id="btnLogin" layoutX="87.0" layoutY="191.0" mnemonicParsing="false" onAction="#login" prefHeight="36.0" prefWidth="294.0" styleClass="btnLogin" text="Login">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

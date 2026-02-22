@@ -9,3 +9,8 @@ An Offline Password Manager solution for privacy geeks out there 😎
 # Under Construction
 
 Coming soon!
+
+# Update Logs
+
+- Feb. 23, 2026
+   - Successfully connected the database (sqlite) and implemented the login function.

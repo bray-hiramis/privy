@@ -49,3 +49,22 @@
 .box3 {
    -fx-background-color: #00500070;
 }
+
+/* Dashboard */
+.dashboard-Pane {
+   -fx-background-color: #005000;
+}
+
+.add-password {
+   -fx-background-color: #fff;
+   -fx-background-radius: 20px;
+   -fx-font-family: sans-serif;
+   -fx-font-size: 14px;
+   -fx-font-weight: 700;
+}
+
+.add-password:hover {
+   -fx-text-fill: #005000;
+   -fx-scale-x: 1.04;
+   -fx-scale-y: 1.04;
+}

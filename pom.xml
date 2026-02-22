@@ -49,7 +49,7 @@
                 <version>0.0.8</version>
                 <configuration>
                     <!-- IMPORTANT: Change this to your actual package.MainClass -->
-                    <mainClass>com.brayhiramis.App</mainClass>
+                    <mainClass>com.privy.App</mainClass>
                 </configuration>
             </plugin>
         </plugins>

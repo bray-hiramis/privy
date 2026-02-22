@@ -8,6 +8,8 @@ target/
 *.exe
 *.msi
 *.dmg
+*.db-shm
+*.db-wal
 
 # --- IDE Specific Files ---
 # Exclude Eclipse specific settings
