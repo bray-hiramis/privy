@@ -1,11 +1,17 @@
+/* root */
+.root {
+   -fx-font-family: sans-serif;
+}
+
 /* Login form */
+
+
 .login_main {
    -fx-background-color: #fff;
 }
 
 .logo {
    -fx-text-fill: #005000;
-   -fx-font-family: sans-serif;
    -fx-font-size: 25px;
    -fx-font-weight: 900;
 }
@@ -13,7 +19,6 @@
 .btnLogin {
    -fx-background-color: #005000;
    -fx-text-fill: #fff;
-   -fx-font-family: sans-serif;
    -fx-font-size: 16px;
    -fx-background-radius: 20px;
 }
@@ -23,7 +28,6 @@
 }
 
 .txtLogin {
-   -fx-font-family: sans-serif;
    -fx-font-size: 14px;
    -fx-text-fill: #005000;
    -fx-border-color: #005000;
@@ -51,20 +55,122 @@
 }
 
 /* Dashboard */
-.dashboard-Pane {
-   -fx-background-color: #005000;
-}
-
-.add-password {
+#txtSearchPassword {
    -fx-background-color: #fff;
-   -fx-background-radius: 20px;
-   -fx-font-family: sans-serif;
+   -fx-effect: dropshadow(gaussian, #005000, 1, 0, 0, 3);
+   -fx-background-radius: 100;
+   -fx-prompt-text-fill: #00500090;
+   -fx-padding: 10px 15px;
    -fx-font-size: 14px;
-   -fx-font-weight: 700;
 }
 
-.add-password:hover {
+#tablePassword {
+   -fx-background-color: #fff;
+   -fx-font-size: 16px;
+}
+/* This targets the background of the header area */
+.table-view .column-header, 
+.table-view .column-header-background .filler {
+    -fx-background-color: #005000;
+}
+/* This changes the text color to white so it's readable against the dark green */
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+.table-view .column-header:hover {
+    -fx-background-color: #007000; /* A slightly lighter green */
+}
+.table-view {
+    /* Changes the row highlight color */
+    -fx-selection-bar: #c2dec2; 
+    
+    /* Changes the color of the text ONLY when a row is selected */
+    /* Use black (#000000) for light highlights, white (#ffffff) for dark */
+    -fx-selection-bar-non-focused: #c2dec2;
+}
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-text-fill: black;
+}
+
+#passwordContainer {
+   -fx-background-color: #fff;
+}
+
+.passwordBox {
+   -fx-background-color: transparent;
+   -fx-border-color: #005000;
+   -fx-border-width: 5px;
+   -fx-background-radius: 100;
+   -fx-border-radius: 100;
+}
+
+.txtPasswordInfo {
+   -fx-font-size: 16px;
+}
+
+.profile {
+   -fx-background-color: transparent;
+   -fx-font-size: 14px;
+}
+
+.btnAddPassword {
+   -fx-background-color: #005000;
+   -fx-text-fill: #fff;
+   -fx-font-size: 16px;
+   -fx-font-weight: 700;
+   -fx-background-radius: 20px;
+}
+.btnAddPassword:hover {
+   -fx-background-color: #007000;
+}
+
+.btnEdit {
+   -fx-background-color: transparent;
+   -fx-border-color: #005000;
+   -fx-background-radius: 100;
+   -fx-border-radius: 100;
+   -fx-border-width: 3px;
+   -fx-font-size: 16px;
    -fx-text-fill: #005000;
-   -fx-scale-x: 1.04;
-   -fx-scale-y: 1.04;
+   -fx-font-weight: 700;
+   -fx-font-size: 16px;
+}
+.btnEdit:hover {
+   -fx-background-color: #009900;
+   -fx-border-color: #009900;
+   -fx-text-fill: #fff;
+}
+
+.btnDelete {
+   -fx-background-color: transparent;
+   -fx-border-color: #cc0000;
+   -fx-background-radius: 100;
+   -fx-border-radius: 100;
+   -fx-border-width: 3px;
+   -fx-text-fill: #cc0000;
+   -fx-font-weight: 700;
+   -fx-font-size: 16px;
+}
+.btnDelete:hover {
+   -fx-background-color: #e62121;
+   -fx-border-color: #e62121;
+   -fx-text-fill: #fff;
+}
+
+.txtPasswordInfoLable {
+   -fx-font-size: 16px;
+   -fx-text-fill: #005000;
+}
+.txtPasswordInfoTextField {
+   -fx-font-size: 16px;
+   -fx-text-fill: #005000;
+   -fx-background-radius: 100;
+   -fx-padding: 10px 20px;
+}
+
+.showPassword {
+   -fx-background-color: transparent;
+   -fx-background-radius: 100;
+   -fx-border-radius: 100;
 }

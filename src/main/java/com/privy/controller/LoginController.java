@@ -5,7 +5,10 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import com.privy.database.DatabaseHandler;
+import com.privy.model.User;
+import com.privy.model.Vault;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,19 +42,36 @@ public class LoginController implements Initializable{
 	}
 	
 	public void login(ActionEvent event) {
-		String username = txtUsername.getText().trim();
+		String username = txtUsername.getText();
 		String password = txtPassword.getText();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
+		DashboardController getUser = new DashboardController();
+		Parent root;
+		Scene scene;
+		Stage stage;
 		
-		if (db.checkLogin(username, password)) {
+		User loggedInUser = db.checkLogin(username, password);
+		
+		
+		if (loggedInUser != null) {
 			System.out.println("You are now login!");
+			int currentId = loggedInUser.getId();
 			
-			try {
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
-				Parent root = loader.load();
-				Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-				Scene scene = new Scene(root);
+			try {				
+				root = loader.load();
+				scene = new Scene(root);
+				stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+				
+				getUser = loader.getController();
+				getUser.setUserID(currentId);
+				getUser.getMenuUsername("Welcome " + username);  
+				
 				stage.setScene(scene);
 				stage.setTitle("Welcome to Privy");
+				stage.setMinWidth(1280);
+				stage.setMinHeight(720);
+				stage.setResizable(true);
+				stage.centerOnScreen();
 				stage.show();
 			} catch (IOException e) {
 				System.err.println(e.getMessage());

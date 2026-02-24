@@ -20,7 +20,8 @@ public class App extends Application {
 		stage.getIcons().add(new Image(getClass().getResourceAsStream("/logo/privy-logo.png")));
 		stage.setResizable(false);
 		stage.setScene(scene);
-		stage.show();		
+		stage.centerOnScreen()
+;		stage.show();		
 	}
 
 	public static void main(String[] args) {
