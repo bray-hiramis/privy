@@ -174,3 +174,41 @@
    -fx-background-radius: 100;
    -fx-border-radius: 100;
 }
+
+/* Create account */
+#title {
+   -fx-font-size: 20px;
+   -fx-font-weight: 700;
+}
+
+.createAccount-label {
+   -fx-font-size: 16px;
+   -fx-text-fill: #005000;
+}
+
+.createAccount-text {
+   -fx-font-size: 14px;
+   -fx-background-radius: 20px;
+   -fx-border-radius: 20px;
+   -fx-padding: 10px 20px;
+   -fx-background-color: transparent;
+   -fx-border-color: #00600080;
+   -fx-prompt-text-fill: #00600080;
+}
+
+#createAccountPane {
+   -fx-background-color: #fff;
+}
+
+.createAccount-btn {
+   -fx-background-radius: 20px;
+   -fx-border-radius: 20px;
+   -fx-background-color: #fff;
+   -fx-border-color: #00600080;
+   -fx-font-size: 16px;
+   -fx-text-fill: #005000;
+}
+
+.createAccount-btn:hover {
+   -fx-background-color: #f8f6f6;
+}

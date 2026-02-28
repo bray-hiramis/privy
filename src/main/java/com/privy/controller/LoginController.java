@@ -6,9 +6,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import com.privy.database.DatabaseHandler;
 import com.privy.model.User;
-import com.privy.model.Vault;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -78,6 +76,28 @@ public class LoginController implements Initializable{
 			}
 		} else 
 			System.out.println("Invalid Login!");
+	}
+	
+	public void createAccount(ActionEvent event)  {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"));
+		Parent root;
+		Scene scene;
+		Stage stage;
+		
+		try {			
+			root = loader.load();
+			scene = new Scene(root);
+			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			
+			stage.setScene(scene);
+			stage.setTitle("Create Account");
+			stage.setResizable(false);
+			stage.centerOnScreen();
+			stage.show();
+		} catch (IOException e) {
+			System.err.println(e.getMessage());
+		}
+		
 	}
 
 }
