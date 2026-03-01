@@ -60,9 +60,7 @@ public class DashboardController implements Initializable{
 	}
     
     public void refreshTable() {
-    	System.out.println("the id is: " + currentUserID);
 		ObservableList<Vault> dataList = db.fetchDBToTable(this.currentUserID);
-		System.out.println(dataList.size());
 		tablePassword.setItems(dataList);		
 	}
 

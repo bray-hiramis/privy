@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.privy.model.SecurityQuestions;
 import com.privy.model.User;
 import com.privy.model.Vault;
 
@@ -68,6 +69,7 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 				 int loginId = rs.getInt("login_id");
 				 
 				 Vault vaultRow = new Vault(id, urlName, urlString, userName, password, loginId);
+				 System.out.println(vaultRow);
 				 observableList.add(vaultRow);
 			 }
 			
@@ -77,6 +79,34 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 		
 		return observableList;
 		
+	}
+	
+	// To get security questions
+	public ObservableList<SecurityQuestions> fetchSecurityQuestions() {
+		
+		ObservableList<SecurityQuestions> comboList = FXCollections.observableArrayList();
+		
+		String secQuestion = "SELECT * FROM security_questions";
+		
+		try (
+				Connection conn = getConnection();
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(secQuestion);
+				){
+			
+			while (rs.next()) {				
+				String questions = rs.getString("security_question");
+				System.out.println(questions);
+				SecurityQuestions sq = new SecurityQuestions(questions);
+				
+				comboList.add(sq);
+			}
+			
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+		}
+		
+		return comboList;
 	}
 	
 }

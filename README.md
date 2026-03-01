@@ -20,3 +20,5 @@ Coming soon!
 - Feb. 28, 2026
    - Added the function to show the password details in the textfields upon clicking on the table (list of passwords).
    - Design the first iteration of the "Create Account" form.
+- March 1, 2026
+   - Added the security questions (static database) to the Create Account form (UI).
