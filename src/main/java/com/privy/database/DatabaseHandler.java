@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.privy.model.HashPassword;
+import com.privy.model.NewUser;
 import com.privy.model.SecurityQuestions;
 import com.privy.model.User;
 import com.privy.model.Vault;
@@ -15,6 +17,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class DatabaseHandler {
+
+// Hash Password model class
+private HashPassword hashPassword;
 
 // DB Path
 private static final String databaseURL= "jdbc:sqlite:privy.db";
@@ -27,13 +32,15 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 	// Login logic
 	public User checkLogin(String username, String password) {
 		String findUser = "SELECT id, username FROM users WHERE username = ? AND password = ?";
+		hashPassword = new HashPassword(password);
+		String hex = hashPassword.getPassword();
 		
 		try (
 				Connection conn = getConnection();
 				PreparedStatement statement = conn.prepareStatement(findUser);
 				) {
 			statement.setString(1, username);
-			statement.setString(2, password);
+			statement.setString(2, hex);
 			ResultSet rs = statement.executeQuery();
 			
 			if (rs.next()) {
@@ -81,7 +88,7 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 		
 	}
 	
-	// To get security questions
+	// fetch security questions
 	public ObservableList<SecurityQuestions> fetchSecurityQuestions() {
 		
 		ObservableList<SecurityQuestions> comboList = FXCollections.observableArrayList();
@@ -95,9 +102,9 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 				){
 			
 			while (rs.next()) {				
+				int id = rs.getInt("id");
 				String questions = rs.getString("security_question");
-				System.out.println(questions);
-				SecurityQuestions sq = new SecurityQuestions(questions);
+				SecurityQuestions sq = new SecurityQuestions(id, questions);
 				
 				comboList.add(sq);
 			}
@@ -107,6 +114,44 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 		}
 		
 		return comboList;
+	}
+	
+	
+	
+	// Create new user account
+	public NewUser addNewUser(String userName, String password, String email, int secQuestion, String answer) throws Exception {
+		
+		String insertSQL = "INSERT INTO users (username, password, email, question_id, security_answer) VALUES (?, ?, ?, ?, ?)";
+		hashPassword = new HashPassword(password);
+		String hex = hashPassword.getPassword();
+		
+		try (
+				Connection conn = getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(insertSQL);
+				) {
+			
+			pstmt.setString(1, userName);
+			pstmt.setString(2, hex);
+			pstmt.setString(3, email);
+			pstmt.setInt(4, secQuestion);
+			pstmt.setString(5, answer);
+			int rows = pstmt.executeUpdate();					
+			
+			if (rows == 1) {
+				return new NewUser(userName, hex, email, secQuestion, answer);
+			}
+			
+		} catch (SQLException e) {
+	        String sqlState = e.getSQLState();
+	        if ("23505".equals(sqlState) || e.getMessage().contains("duplicate") || e.getMessage().contains("UNIQUE")) {
+	        	throw new Exception("Username or email already exists.");
+	        } else {
+	        	throw new Exception("Database error: " + e.getMessage());
+	        }
+	    }
+		
+		return null;
+		
 	}
 	
 }

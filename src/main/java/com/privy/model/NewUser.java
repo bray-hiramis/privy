@@ -5,10 +5,10 @@ public class NewUser {
 	private String userName;
 	private String password;
 	private String email;
-	private String securityQuestion;
+	private int securityQuestion;
 	private String answer;
 	
-	public NewUser(String userName, String password, String email, String securityQuestion, String answer) {
+	public NewUser(String userName, String password, String email, int securityQuestion, String answer) {
 		super();
 		this.userName = userName;
 		this.password = password;
@@ -41,11 +41,11 @@ public class NewUser {
 		this.email = email;
 	}
 
-	public String getSecurityQuestion() {
+	public int getSecurityQuestion() {
 		return securityQuestion;
 	}
 
-	public void setSecurityQuestion(String securityQuestion) {
+	public void setSecurityQuestion(int securityQuestion) {
 		this.securityQuestion = securityQuestion;
 	}
 

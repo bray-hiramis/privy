@@ -22,3 +22,8 @@ Coming soon!
    - Design the first iteration of the "Create Account" form.
 - March 1, 2026
    - Added the security questions (static database) to the Create Account form (UI).
+- March 5, 2026
+   - Create new account form is complete and working:
+      - Added a feature to Hash the password using *PBKDF2*.
+      - Added a validation to check if email format is valid using *Java Regex*.
+   - Updated the login function so it will accept the Hash Password.

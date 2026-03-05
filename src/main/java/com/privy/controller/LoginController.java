@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -25,6 +26,9 @@ public class LoginController implements Initializable{
 
     @FXML
     private TextField txtUsername;
+    
+    @FXML
+    private Label lblError;
 
 	DatabaseHandler db = new DatabaseHandler();
 	
@@ -75,7 +79,7 @@ public class LoginController implements Initializable{
 				System.err.println(e.getMessage());
 			}
 		} else 
-			System.out.println("Invalid Login!");
+			lblError.setVisible(true);
 	}
 	
 	public void createAccount(ActionEvent event)  {

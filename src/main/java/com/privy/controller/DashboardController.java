@@ -1,7 +1,6 @@
 						package com.privy.controller;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import com.privy.database.DatabaseHandler;
