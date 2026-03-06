@@ -1,4 +1,4 @@
-package com.privy.model;
+package com.privy.helper;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;

@@ -5,6 +5,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import com.privy.database.DatabaseHandler;
+import com.privy.helper.Navigation;
 import com.privy.model.User;
 
 import javafx.event.ActionEvent;
@@ -12,8 +13,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -44,13 +43,8 @@ public class LoginController implements Initializable{
 	}
 	
 	public void login(ActionEvent event) {
-		String username = txtUsername.getText();
+		String username = txtUsername.getText().trim();
 		String password = txtPassword.getText();
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
-		DashboardController getUser = new DashboardController();
-		Parent root;
-		Scene scene;
-		Stage stage;
 		
 		User loggedInUser = db.checkLogin(username, password);
 		
@@ -60,21 +54,15 @@ public class LoginController implements Initializable{
 			int currentId = loggedInUser.getId();
 			
 			try {				
-				root = loader.load();
-				scene = new Scene(root);
-				stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-				
-				getUser = loader.getController();
-				getUser.setUserID(currentId);
-				getUser.getMenuUsername("Welcome " + username);  
-				
-				stage.setScene(scene);
-				stage.setTitle("Welcome to Privy");
+				Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+				FXMLLoader loader = Navigation.getLoader(stage, "/fxml/dashboard.fxml", "Privy - Vault");
+				DashboardController dashboard = new DashboardController();
+				dashboard = loader.getController();
+				dashboard.setUserID(currentId);
+				dashboard.getMenuUsername("Welcome " + username);
 				stage.setMinWidth(1280);
 				stage.setMinHeight(720);
 				stage.setResizable(true);
-				stage.centerOnScreen();
-				stage.show();
 			} catch (IOException e) {
 				System.err.println(e.getMessage());
 			}
@@ -82,26 +70,10 @@ public class LoginController implements Initializable{
 			lblError.setVisible(true);
 	}
 	
-	public void createAccount(ActionEvent event)  {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"));
-		Parent root;
-		Scene scene;
-		Stage stage;
-		
-		try {			
-			root = loader.load();
-			scene = new Scene(root);
-			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-			
-			stage.setScene(scene);
-			stage.setTitle("Create Account");
-			stage.setResizable(false);
-			stage.centerOnScreen();
-			stage.show();
-		} catch (IOException e) {
-			System.err.println(e.getMessage());
-		}
-		
+	public void createAccount(ActionEvent event) throws IOException  {		
+		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		Navigation.navigateTo(stage, "/fxml/register.fxml", "Create Account");
+		stage.setResizable(false);
 	}
 
 }

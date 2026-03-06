@@ -1,4 +1,4 @@
-package com.privy.model;
+package com.privy.helper;
 
 public class SecurityQuestions {
 

@@ -7,9 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.privy.model.HashPassword;
+import com.privy.helper.HashPassword;
+import com.privy.helper.SecurityQuestions;
 import com.privy.model.NewUser;
-import com.privy.model.SecurityQuestions;
 import com.privy.model.User;
 import com.privy.model.Vault;
 

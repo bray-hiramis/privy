@@ -6,6 +6,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -13,6 +15,31 @@
    <children>
       <TextField fx:id="txtUserName" layoutX="39.0" layoutY="125.0" prefHeight="42.0" prefWidth="563.0" promptText="e.g. johnDoe" styleClass="createAccount-text" />
       <PasswordField fx:id="txtPassword" layoutX="39.0" layoutY="209.0" prefHeight="42.0" prefWidth="563.0" promptText="Password must be a minimum of 8 characters" styleClass="createAccount-text" />
+      <TextField fx:id="txtShowPassword" layoutX="39.0" layoutY="209.0" prefHeight="42.0" prefWidth="563.0" promptText="Password must be a minimum of 8 characters" styleClass="createAccount-text" visible="false" />
+      <Button fx:id="btnHidePassword" layoutX="554.0" layoutY="215.0" mnemonicParsing="false" onAction="#hidePassword" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" visible="false">
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/hidePassword.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="btnShowPassword" layoutX="554.0" layoutY="215.0" mnemonicParsing="false" onAction="#showPassword" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/showPassword.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
       <TextField fx:id="txtEmail" layoutX="39.0" layoutY="292.0" prefHeight="42.0" prefWidth="563.0" promptText="e.g. example@email.com" styleClass="createAccount-text" />
       <ComboBox fx:id="cmbSecurityQuestions" layoutX="39.0" layoutY="376.0" prefHeight="22.0" prefWidth="563.0" promptText="Choose a security question" styleClass="createAccount-text" />
       <TextField fx:id="txtAnswer" layoutX="39.0" layoutY="468.0" prefHeight="42.0" prefWidth="563.0" styleClass="createAccount-text" />

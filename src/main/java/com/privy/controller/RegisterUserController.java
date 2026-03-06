@@ -1,5 +1,6 @@
 package com.privy.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -7,9 +8,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.privy.database.DatabaseHandler;
+import com.privy.helper.SecurityQuestions;
 import com.privy.model.NewUser;
-import com.privy.model.SecurityQuestions;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,15 +21,20 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 public class RegisterUserController implements Initializable {
+	
+	@FXML
+    private AnchorPane createAccountPane;
 
     @FXML
     private ComboBox<SecurityQuestions> cmbSecurityQuestions;
@@ -49,6 +56,15 @@ public class RegisterUserController implements Initializable {
     
     @FXML
     private Label lblError;
+    
+    @FXML
+    private Button btnHidePassword;
+
+    @FXML
+    private Button btnShowPassword;
+    
+    @FXML
+    private TextField txtShowPassword;
     
     private DatabaseHandler db = new DatabaseHandler();
     
@@ -98,6 +114,7 @@ public class RegisterUserController implements Initializable {
     	// Calling method for the security questions
     	getSecQuestions();
     	
+    	// Capturing the id of the security question (for database purposes)
 		cmbSecurityQuestions.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 		
 			if (newSelection != null) {
@@ -107,26 +124,55 @@ public class RegisterUserController implements Initializable {
 			}
 			
 		});
+		
+		// Capturing text from password field to show password textfield
+		txtShowPassword.textProperty().bindBidirectional(txtPassword.textProperty());
+		
+		// Capturing text from show password textfield to passwordfield
+		txtPassword.textProperty().bindBidirectional(txtShowPassword.textProperty());
+		
+		// Closing register form
+		Platform.runLater(() -> {
+			Stage stage = (Stage) createAccountPane.getScene().getWindow();
+			stage.setOnCloseRequest(e -> {
+				e.consume();
+				try {
+					stage.setOnCloseRequest(null);
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+					Parent root = loader.load();
+					Scene scene = new Scene(root);
+					stage.setScene(scene);
+					stage.centerOnScreen();
+					stage.show();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			});
+		});
+		
     }
-
+    
+    // Creating new user
     public void createAccount(ActionEvent event) throws Exception {
-    	String userName = txtUserName.getText();
+    	String userName = txtUserName.getText().trim();
     	String password = txtPassword.getText();
-    	String email = txtEmail.getText();
+    	String showPassword = txtShowPassword.getText();
+    	String email = txtEmail.getText().trim();
     	String questionStr = txtQuestionId.getText();
-    	String answer = txtAnswer.getText();
+    	String answer = txtAnswer.getText().trim();
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
     	Parent root;
     	Scene scene;
     	Stage stage;
     	
-    	
+    	// Check all fields are filled out
     	if (userName.isEmpty() || password.isEmpty() || email.isEmpty() || questionStr.isEmpty() || answer.isEmpty()) {
     		lblError.setVisible(true);
     		lblError.setText("All fields required!");
     		return;
     	}
     	
+    	// Check if they selected a security question
     	int questionId;
     	try {
 			questionId = Integer.parseInt(questionStr);
@@ -137,12 +183,21 @@ public class RegisterUserController implements Initializable {
 			return;
 		}
     	
+    	// Check if email format is valid
     	if (!isValidEmail(email)) {
     		lblError.setVisible(true);
     		lblError.setText("Invalid email format. Acceptable email format: E.g., johndoe@emailprovider.com");
     		return;
     	}
     	
+    	// Check if password is a minimum of 8 characters
+    	if (password.length() < 8 && showPassword.length() < 8) {
+    	    lblError.setVisible(true);
+    	    lblError.setText("Password must be at least 8 characters long.");
+    	    return;
+    	}
+    	
+    	// Calling insert database method from db.addNewUser()
     	try {			    		
     		NewUser newUser = db.addNewUser(userName, password, email, questionId, answer);
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -162,10 +217,32 @@ public class RegisterUserController implements Initializable {
 				return;
     			}
 		} catch (Exception e) {
+			
+			// Check if email or user name exist to avoid duplicate errors
 			lblError.setText(e.getMessage()); 
 	        lblError.setVisible(true);
 		}
     	
     }
+    
+    // Show password
+    public void showPassword(ActionEvent event) {
+    	
+    	txtPassword.setVisible(false);
+    	txtShowPassword.setVisible(true);
+    	btnHidePassword.setVisible(true);
+    	btnShowPassword.setVisible(false);
+    	
+    }
+    
+    // Hide Password
+    public void hidePassword(ActionEvent event) {
+		
+    	txtPassword.setVisible(true);
+    	txtShowPassword.setVisible(false);
+    	btnHidePassword.setVisible(false);
+    	btnShowPassword.setVisible(true);
+    	
+	}
     
 }

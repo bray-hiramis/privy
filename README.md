@@ -20,10 +20,14 @@ Coming soon!
 - Feb. 28, 2026
    - Added the function to show the password details in the textfields upon clicking on the table (list of passwords).
    - Design the first iteration of the "Create Account" form.
-- March 1, 2026
+- March 01, 2026
    - Added the security questions (static database) to the Create Account form (UI).
-- March 5, 2026
+- March 05, 2026
    - Create new account form is complete and working:
       - Added a feature to Hash the password using *PBKDF2*.
       - Added a validation to check if email format is valid using *Java Regex*.
    - Updated the login function so it will accept the Hash Password.
+- March 06, 2026
+   - Added a show and hide password feature in Create Account form.
+   - Added an additional error handler to ensure user typed a minimum of 8 character password.
+   - Added a Navigation class to control the switching scene.
