@@ -8,6 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.privy.database.DatabaseHandler;
+import com.privy.helper.Navigation;
 import com.privy.helper.SecurityQuestions;
 import com.privy.model.NewUser;
 
@@ -136,17 +137,7 @@ public class RegisterUserController implements Initializable {
 			Stage stage = (Stage) createAccountPane.getScene().getWindow();
 			stage.setOnCloseRequest(e -> {
 				e.consume();
-				try {
-					stage.setOnCloseRequest(null);
-					FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
-					Parent root = loader.load();
-					Scene scene = new Scene(root);
-					stage.setScene(scene);
-					stage.centerOnScreen();
-					stage.show();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				Navigation.navigateTo(stage, "/fxml/login.fxml", "Privy | Password Manager");
 			});
 		});
 		
@@ -160,10 +151,6 @@ public class RegisterUserController implements Initializable {
     	String email = txtEmail.getText().trim();
     	String questionStr = txtQuestionId.getText();
     	String answer = txtAnswer.getText().trim();
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
-    	Parent root;
-    	Scene scene;
-    	Stage stage;
     	
     	// Check all fields are filled out
     	if (userName.isEmpty() || password.isEmpty() || email.isEmpty() || questionStr.isEmpty() || answer.isEmpty()) {
@@ -208,16 +195,11 @@ public class RegisterUserController implements Initializable {
 			
 			if (result.isPresent() && result.get() == ButtonType.OK) {
 				lblError.setVisible(false);
-				root = loader.load();
-				scene = new Scene(root);
-				stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-				stage.setScene(scene);
-				stage.centerOnScreen();
-				stage.show();
+				Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+				Navigation.navigateTo(stage, "/fxml/login.fxml", "Privy | Password Manager");
 				return;
     			}
 		} catch (Exception e) {
-			
 			// Check if email or user name exist to avoid duplicate errors
 			lblError.setText(e.getMessage()); 
 	        lblError.setVisible(true);

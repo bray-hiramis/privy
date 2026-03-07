@@ -29,6 +29,11 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 		return DriverManager.getConnection(databaseURL);
 	}
 	
+	/*
+	 * Login Section
+	 * 
+	 */
+	
 	// Login logic
 	public User checkLogin(String username, String password) {
 		String findUser = "SELECT id, username FROM users WHERE username = ? AND password = ?";
@@ -53,6 +58,11 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 		
 		return null;
 	}
+	
+	/*
+	 * Dashboard Section
+	 * 
+	 */
 	
 	// fetch data to table
 	public ObservableList<Vault> fetchDBToTable(int currentID) {
@@ -88,6 +98,11 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 		
 	}
 	
+	/*
+	 * Create New User Account Section
+	 * 
+	 */
+	
 	// fetch security questions
 	public ObservableList<SecurityQuestions> fetchSecurityQuestions() {
 		
@@ -115,8 +130,6 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 		
 		return comboList;
 	}
-	
-	
 	
 	// Create new user account
 	public NewUser addNewUser(String userName, String password, String email, int secQuestion, String answer) throws Exception {
@@ -153,5 +166,59 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 		return null;
 		
 	}
+	
+	/*
+	 * Forgot Password Section
+	 * 
+	 */
+	
+	
+	public SecurityQuestions confirmEmail(String email) throws Exception {
+		
+		String findEmail = "SELECT question_id FROM users WHERE email = ?";
+		
+		try (
+				Connection conn = getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(findEmail);
+				){
+			
+			pstmt.setString(1, email);
+			ResultSet rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				int id = rs.getInt("question_id");
+				return new SecurityQuestions(id, null);
+			}
+			
+			throw new Exception("Email does not exist!");
+			
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+		}
+		return null;
+	}
+	
+	public SecurityQuestions questionID(int id) throws Exception {
+		
+		String findQuestion = "SELECT security_question FROM security_questions WHERE id = ?";
+		
+		try (
+				Connection conn = getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(findQuestion);
+				) {
+			
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				String sq = rs.getString("security_question");
+				return new SecurityQuestions(id, sq);
+			}
+			
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+		}
+		return null;
+	}
+	
 	
 }

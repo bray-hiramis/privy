@@ -213,3 +213,23 @@
    -fx-background-color: #f8f6f6;
 }
 
+/* Forgot password */
+.forgot-password-text {
+   -fx-background-color: transparent;
+   -fx-padding: 10px;
+   -fx-prompt-text-fill: #00600080;
+   -fx-background-radius: 20px;
+   -fx-border-radius: 20px;
+   -fx-border-color: #005000;
+}
+
+.forgot-password-btn {
+   -fx-background-color: #005000;
+   -fx-text-fill: #fff;
+   -fx-font-size: 16px;
+   -fx-background-radius: 20px;
+}
+
+.forgot-password-btn:hover {
+   -fx-background-color: #008000;
+}

@@ -72,8 +72,14 @@ public class LoginController implements Initializable{
 	
 	public void createAccount(ActionEvent event) throws IOException  {		
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		Navigation.navigateTo(stage, "/fxml/register.fxml", "Create Account");
+		Navigation.navigateTo(stage, "/fxml/register.fxml", "Privy - Create Account");
 		stage.setResizable(false);
+	}
+	
+	public void forgotAccountForm(ActionEvent event) {
+		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		Navigation.navigateTo(stage, "/fxml/forgot_account.fxml", "Privy - Reset Password");
+		stage.setResizable(true);
 	}
 
 }
