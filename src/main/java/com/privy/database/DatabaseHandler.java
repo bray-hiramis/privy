@@ -194,8 +194,8 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 			
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
+			throw new Exception(e.getMessage());
 		}
-		return null;
 	}
 	
 	public SecurityQuestions questionID(int id) throws Exception {
@@ -216,9 +216,57 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 			
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
+			throw new Exception(e.getMessage());
 		}
 		return null;
 	}
 	
+	public User getAnswer(String answer, String email) throws SQLException {
+		
+		String findAnswer = "SELECT * FROM users WHERE security_answer = ? and email = ?";
+		
+		try (
+				Connection conn = getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(findAnswer);
+				) {
+			
+			pstmt.setString(1, answer);
+			pstmt.setString(2, email);
+			ResultSet rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				int id = rs.getInt("id");
+				String username = rs.getString("username");
+				return new User(id, username);
+			} 				
+			
+			throw new SQLException("Incorrect Answer.");
+				
+		} catch (SQLException e) {
+			throw new SQLException(e.getMessage());
+		}
+	}
+	
+//	public boolean updateEmail(String password, String username) {
+//		
+//		String update = "UPDATE users SET password = ? WHERE username = ?";
+//		
+//		try (
+//				Connection conn = getConnection();
+//				PreparedStatement pstmt = conn.prepareStatement(update);
+//				) {
+//			
+//			pstmt.setString(1, password);
+//			pstmt.setString(2, username);
+//			int rows = pstmt.executeUpdate();
+//			if (rows == 1) {
+//				return true;
+//			}
+//			
+//		} catch (Exception e) {
+//			System.err.println(e.getMessage());
+//		}
+//		return false;
+//	}
 	
 }

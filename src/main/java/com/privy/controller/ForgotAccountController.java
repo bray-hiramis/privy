@@ -1,12 +1,12 @@
 package com.privy.controller;
 
 import java.net.URL;
-import java.security.Security;
 import java.util.ResourceBundle;
 
 import com.privy.database.DatabaseHandler;
 import com.privy.helper.Navigation;
 import com.privy.helper.SecurityQuestions;
+import com.privy.model.User;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -75,6 +75,7 @@ public class ForgotAccountController implements Initializable {
 			stage.setOnCloseRequest(e -> {
 				e.consume();
 				Navigation.navigateTo(stage, "/fxml/login.fxml", "Privy | Password Manager");
+				stage.setResizable(false);
 			});
 		});
 		
@@ -119,7 +120,34 @@ public class ForgotAccountController implements Initializable {
 	
 	public void verifyAnswer(ActionEvent event) {
 		
+		String answer = txtAnswer.getText().trim();
+		String email = txtEmail.getText().trim();
 		
+		if (answer.isEmpty()) {
+			lblFound.setText("Please enter your answer.");
+			lblFound.setVisible(true);
+			lblFound.setStyle("-fx-text-fill: red;");
+			return;
+		}
+		
+		try {
+			User user = db.getAnswer(answer, email);
+			txtUsername.setText(user.getUserName());
+			lblFound.setStyle("-fx-text-fill: #005000;");
+			lblFound.setText("We found your account!");
+			lblFound.setVisible(true);
+			txtAnswer.setStyle("-fx-background-color: #00900080;");
+			txtAnswer.setEditable(false);
+			btnVerifyAnswer.setDisable(true);
+			
+			txtHiddenPassword.setEditable(true);
+			txtShowPassword.setEditable(true);
+			btnResetPassword.setDisable(false);
+		} catch (Exception e) {			
+			lblFound.setText(e.getMessage());
+			lblFound.setStyle("-fx-text-fill: red;");
+			lblFound.setVisible(true);
+		}
 		
 	}
 	

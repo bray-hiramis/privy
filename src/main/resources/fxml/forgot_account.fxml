@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-
 <StackPane fx:id="mainContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.privy.controller.ForgotAccountController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;">
@@ -51,7 +50,7 @@
                         <Font name="Roboto Regular" size="14.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="btnVerifyAnswer" disable="true" layoutX="541.0" layoutY="305.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="199.0" styleClass="forgot-password-btn" stylesheets="@../css/style.css" text="Verify">
+                  <Button fx:id="btnVerifyAnswer" disable="true" layoutX="541.0" layoutY="305.0" mnemonicParsing="false" onAction="#verifyAnswer" prefHeight="40.0" prefWidth="199.0" styleClass="forgot-password-btn" stylesheets="@../css/style.css" text="Verify">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

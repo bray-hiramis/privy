@@ -37,3 +37,8 @@ Coming soon!
          - Recovery email and Security Question - status: *working*
          - Verfiy Answer function - status: *work in progress*
          - Reset Password function - status: *work in progress*
+- March 08, 2026
+   - For Reset Password form:
+      - Recovery email and Security Question - status: *working*
+      - Verfiy Answer function - status: *working*
+      - Reset Password function - status: *work in progress*
