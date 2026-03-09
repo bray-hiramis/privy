@@ -1,6 +1,5 @@
 package com.privy.controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -16,11 +15,8 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -197,6 +193,7 @@ public class RegisterUserController implements Initializable {
 				lblError.setVisible(false);
 				Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 				Navigation.navigateTo(stage, "/fxml/login.fxml", "Privy | Password Manager");
+				stage.setResizable(false);
 				return;
     			}
 		} catch (Exception e) {

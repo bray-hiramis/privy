@@ -70,13 +70,26 @@
                      <children>
                         <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="580.0" prefWidth="400.0" style="-fx-background-color: #fff;">
                            <children>
-                              <TextField fx:id="txtURLName" editable="false" layoutX="77.0" layoutY="78.0" prefHeight="40.0" prefWidth="332.0" styleClass="txtPasswordInfoTextField" text="sample" />
-                              <TextField fx:id="txtURL" editable="false" layoutX="76.0" layoutY="161.0" prefHeight="40.0" prefWidth="332.0" styleClass="txtPasswordInfoTextField" text="Sample text" />
-                              <TextField fx:id="txtUserName" editable="false" layoutX="77.0" layoutY="242.0" prefHeight="40.0" prefWidth="332.0" styleClass="txtPasswordInfoTextField" text="Sample text" />
-                              <PasswordField fx:id="txtPassword" editable="false" layoutX="76.0" layoutY="324.0" prefHeight="40.0" prefWidth="332.0" styleClass="txtPasswordInfoTextField" text="Sampletext" />
-                              <Button layoutX="358.0" layoutY="320.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="showPassword">
+                              <TextField fx:id="txtURLName" editable="false" layoutX="77.0" layoutY="78.0" prefHeight="40.0" prefWidth="332.0" styleClass="txtPasswordInfoTextField" />
+                              <TextField fx:id="txtURL" editable="false" layoutX="76.0" layoutY="161.0" prefHeight="40.0" prefWidth="332.0" styleClass="txtPasswordInfoTextField" />
+                              <TextField fx:id="txtUserName" editable="false" layoutX="77.0" layoutY="242.0" prefHeight="40.0" prefWidth="332.0" styleClass="txtPasswordInfoTextField" />
+                              <TextField fx:id="txtShowPassword" editable="false" layoutX="76.0" layoutY="324.0" prefHeight="40.0" prefWidth="332.0" styleClass="txtPasswordInfoTextField" />
+                              <PasswordField fx:id="txtPassword" editable="false" layoutX="76.0" layoutY="324.0" prefHeight="40.0" prefWidth="332.0" styleClass="txtPasswordInfoTextField" />
+                              <Button fx:id="btnHidePassword" layoutX="370.0" layoutY="330.0" mnemonicParsing="false" onAction="#hidePassword" prefHeight="30.0" prefWidth="30.0" styleClass="showPassword" visible="false">
                                  <graphic>
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/hidePassword.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="btnShowPassword" layoutX="370.0" layoutY="330.0" mnemonicParsing="false" onAction="#showPassword" prefHeight="30.0" prefWidth="30.0" styleClass="showPassword">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../img/showPassword.png" />
                                        </image>

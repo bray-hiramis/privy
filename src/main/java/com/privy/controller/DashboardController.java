@@ -7,14 +7,17 @@ import com.privy.database.DatabaseHandler;
 import com.privy.model.Vault;
 
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 
 public class DashboardController implements Initializable{
 
@@ -35,6 +38,9 @@ public class DashboardController implements Initializable{
     
     @FXML
     private PasswordField txtPassword;
+    
+    @FXML
+    private TextField txtShowPassword;
 
     @FXML
     private TextField txtSearchPassword;
@@ -47,6 +53,16 @@ public class DashboardController implements Initializable{
 
     @FXML
     private TextField txtUserName;
+    
+    @FXML
+    private Button btnHidePassword;
+
+    @FXML
+    private Button btnShowPassword;
+    
+    @FXML
+    private AnchorPane innerPasswordContainer;
+
     
     // stores the current user id to filter the table view for their saved passwords
     private int currentUserID;
@@ -71,7 +87,7 @@ public class DashboardController implements Initializable{
 		url.setCellValueFactory(new PropertyValueFactory<>("url"));
 		userNameCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
 		
-		
+		// Listens to a click when user selects a row in the table
 		tablePassword.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 			
 			if (newSelection != null) {
@@ -82,6 +98,30 @@ public class DashboardController implements Initializable{
 			}
 			
 		});
+		
+		// For show and hide password
+		txtShowPassword.textProperty().bindBidirectional(txtPassword.textProperty());
+		txtPassword.textProperty().bindBidirectional(txtShowPassword.textProperty());
+		
+	}
+	
+	public void showPassword(ActionEvent event) {
+		
+		txtPassword.setVisible(false);
+		btnShowPassword.setVisible(false);
+		
+		txtShowPassword.setVisible(true);
+		btnHidePassword.setVisible(true);
+		
+	}
+	
+	public void hidePassword(ActionEvent event) {
+		
+		txtPassword.setVisible(true);
+		btnShowPassword.setVisible(true);
+		
+		txtShowPassword.setVisible(false);
+		btnHidePassword.setVisible(false);
 		
 	}
 	

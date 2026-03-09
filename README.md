@@ -34,11 +34,14 @@ Coming soon!
 - March 07, 2026
    - Design the form for Reset Password:
       - Verification requires:
-         - Recovery email and Security Question - status: *working*
-         - Verfiy Answer function - status: *work in progress*
-         - Reset Password function - status: *work in progress*
+         - Recovery email and Security Question - status: *working*.
+         - Verfiy Answer function - status: *work in progress*.
+         - Reset Password function - status: *work in progress*.
 - March 08, 2026
    - For Reset Password form:
-      - Recovery email and Security Question - status: *working*
-      - Verfiy Answer function - status: *working*
-      - Reset Password function - status: *work in progress*
+      - Verfiy Answer function - status: *working*.
+      - Reset Password function - status: *work in progress*.
+- March 09, 2026
+   - For Reset Password form:
+      - Reset Password function - status: *working*.
+   - All forms have *Show and Hide password* features.

@@ -223,7 +223,7 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 	
 	public User getAnswer(String answer, String email) throws SQLException {
 		
-		String findAnswer = "SELECT * FROM users WHERE security_answer = ? and email = ?";
+		String findAnswer = "SELECT * FROM users WHERE security_answer = ? AND email = ?";
 		
 		try (
 				Connection conn = getConnection();
@@ -247,26 +247,27 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 		}
 	}
 	
-//	public boolean updateEmail(String password, String username) {
-//		
-//		String update = "UPDATE users SET password = ? WHERE username = ?";
-//		
-//		try (
-//				Connection conn = getConnection();
-//				PreparedStatement pstmt = conn.prepareStatement(update);
-//				) {
-//			
-//			pstmt.setString(1, password);
-//			pstmt.setString(2, username);
-//			int rows = pstmt.executeUpdate();
-//			if (rows == 1) {
-//				return true;
-//			}
-//			
-//		} catch (Exception e) {
-//			System.err.println(e.getMessage());
-//		}
-//		return false;
-//	}
+	public boolean updatePassword(String password, String username) {
+		
+		String update = "UPDATE users SET password = ? WHERE username = ?";
+		
+		hashPassword = new HashPassword(password);
+		String hex = hashPassword.getPassword();
+		
+		try (
+				Connection conn = getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(update);
+				) {
+			
+			pstmt.setString(1, hex);
+			pstmt.setString(2, username);
+			
+			return pstmt.executeUpdate() == 1;
+			
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			return false;
+		}
+	}
 	
 }

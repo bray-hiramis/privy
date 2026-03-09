@@ -2,7 +2,6 @@ package com.privy.controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 import com.privy.database.DatabaseHandler;
 import com.privy.helper.Navigation;
@@ -13,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -21,7 +21,16 @@ import javafx.stage.Stage;
 public class LoginController implements Initializable{
 	
 	@FXML
+    private Button btnHidePassword;
+
+    @FXML
+    private Button btnShowPassword;
+	
+	@FXML
     private PasswordField txtPassword;
+	
+	@FXML
+    private TextField txtShowPassword;
 
     @FXML
     private TextField txtUsername;
@@ -34,12 +43,9 @@ public class LoginController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		try {
-			db.getConnection();
-			System.out.println("Database connected: " + db.getConnection());
-		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-		}
+		txtShowPassword.textProperty().bindBidirectional(txtPassword.textProperty());
+		txtPassword.textProperty().bindBidirectional(txtShowPassword.textProperty());
+		
 	}
 	
 	public void login(ActionEvent event) {
@@ -80,6 +86,26 @@ public class LoginController implements Initializable{
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		Navigation.navigateTo(stage, "/fxml/forgot_account.fxml", "Privy - Reset Password");
 		stage.setResizable(true);
+	}
+	
+	public void showPassword(ActionEvent event) {
+		
+		txtPassword.setVisible(false);
+		btnShowPassword.setVisible(false);
+		
+		txtShowPassword.setVisible(true);
+		btnHidePassword.setVisible(true);
+		
+	}
+	
+public void hidePassword(ActionEvent event) {
+		
+		txtPassword.setVisible(true);
+		btnShowPassword.setVisible(true);
+		
+		txtShowPassword.setVisible(false);
+		btnHidePassword.setVisible(false);
+		
 	}
 
 }

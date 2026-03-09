@@ -66,19 +66,22 @@
                         <Font name="Roboto Regular" size="14.0" />
                      </font>
                   </TextField>
-                  <Button layoutX="704.0" layoutY="496.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;">
+                  <Button fx:id="btnShowPassword" layoutX="704.0" layoutY="496.0" mnemonicParsing="false" onAction="#showPassword" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;">
                      <graphic>
-                        <ImageView fx:id="btnShowPassword" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../img/showPassword.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                      </graphic>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="btnHidePassword" layoutX="704.0" layoutY="496.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" visible="false">
+                  <Button fx:id="btnHidePassword" layoutX="704.0" layoutY="496.0" mnemonicParsing="false" onAction="#hidePassword" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" visible="false">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -90,7 +93,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="btnResetPassword" disable="true" layoutX="14.0" layoutY="552.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="740.0" styleClass="forgot-password-btn" stylesheets="@../css/style.css" text="Reset Password">
+                  <Button fx:id="btnResetPassword" disable="true" layoutX="14.0" layoutY="552.0" mnemonicParsing="false" onAction="#resetPassword" prefHeight="57.0" prefWidth="740.0" styleClass="forgot-password-btn" stylesheets="@../css/style.css" text="Reset Password">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
