@@ -16,7 +16,7 @@
    <children>
       <TextField fx:id="txtUsername" layoutX="87.0" layoutY="104.0" prefHeight="36.0" prefWidth="294.0" promptText="Username" styleClass="txtLogin" />
       <PasswordField fx:id="txtPassword" layoutX="87.0" layoutY="148.0" prefHeight="36.0" prefWidth="294.0" promptText="Password" styleClass="txtLogin" />
-      <TextField fx:id="txtShowPassword" layoutX="87.0" layoutY="148.0" prefHeight="36.0" prefWidth="294.0" promptText="Password" styleClass="txtLogin" />
+      <TextField fx:id="txtShowPassword" layoutX="87.0" layoutY="148.0" prefHeight="36.0" prefWidth="294.0" promptText="Password" styleClass="txtLogin" visible="false" />
       <Button fx:id="btnLogin" layoutX="87.0" layoutY="191.0" mnemonicParsing="false" onAction="#login" prefHeight="36.0" prefWidth="294.0" styleClass="btnLogin" text="Login">
          <cursor>
             <Cursor fx:constant="HAND" />

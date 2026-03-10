@@ -175,6 +175,11 @@
    -fx-border-radius: 100;
 }
 
+.lblError {
+   -fx-font-size: 16px;
+   -fx-font-weight: 700;
+}
+
 /* Create account */
 #title {
    -fx-font-size: 20px;

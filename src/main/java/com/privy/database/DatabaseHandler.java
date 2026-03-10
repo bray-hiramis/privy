@@ -86,7 +86,6 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 				 int loginId = rs.getInt("login_id");
 				 
 				 Vault vaultRow = new Vault(id, urlName, urlString, userName, password, loginId);
-				 System.out.println(vaultRow);
 				 observableList.add(vaultRow);
 			 }
 			
@@ -95,6 +94,31 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 		}
 		
 		return observableList;
+		
+	}
+	
+	public boolean dashboardUpdatePassword(String urlName, String url, String username, String password, int id, int loginID) throws Exception {
+		
+		String sqlUpdatePassword = "UPDATE vault SET url_name = ?, url = ?, username = ?, password = ? WHERE id = ? AND login_id = ?";
+		
+		try (
+				Connection conn = getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sqlUpdatePassword);) {
+			
+			pstmt.setString(1, urlName);
+			pstmt.setString(2, url);
+			pstmt.setString(3, username);
+			pstmt.setString(4, password);
+			
+			pstmt.setInt(5, id);
+			pstmt.setInt(6, loginID);
+			
+			return pstmt.executeUpdate() == 1;
+			
+			
+		} catch (SQLException e) {
+			throw new SQLException(e.getMessage());
+		}
 		
 	}
 	

@@ -10,6 +10,71 @@ An Offline Password Manager solution for privacy geeks out there 😎
 
 Coming soon!
 
+# Getting Started
+
+This project is built using Java 21, JavaFX, and Maven. While the program is still under development, if you want to make a copy of the program, please follow the steps below.
+
+## Prerequisites
+
+- Java Development Kit (JDK) 21 or higher.
+
+- Maven (integrated in most IDEs).
+
+- SQLite (The database file privy.db will be initialized automatically on the first run).
+
+## Step 1: Clone the Repository
+
+First, you need to get the source code onto your local machine. Open your terminal or command prompt and run:
+
+``` 
+git clone https://github.com/bray-hiramis/privy.git
+```
+```
+cd privy 
+```
+
+## Step 2: How to Run
+
+### Option 1: Using IntelliJ IDEA
+
+1. Open IntelliJ and select File > Open.
+
+2. Navigate to the cloned privy folder and select the pom.xml file.
+
+3. Choose Open as Project.
+
+4. Wait for Maven to download dependencies (check the progress bar at the bottom).
+
+5. Open src/main/java/com/privy/App.java.
+
+6. Right-click anywhere in the file and select Run 'App.main()'.
+
+### Option 2: Using Eclipse IDE
+
+1. Go to File > Import...
+
+2. Select Maven > Existing Maven Projects and click Next.
+
+3. Browse to the cloned privy root directory and click Finish.
+
+4. Right-click on the project in the Project Explorer.
+
+5. Select Run As > Java Application.
+
+6. Select App - com.privy as the entry point.
+
+### Option 3: Using the Command Line (Terminal)
+
+If you have Maven installed globally, you can run the app without opening an IDE:
+
+```
+mvn clean javafx:run
+```
+
+## Troubleshooting
+
+- Please let me know if you encouter issues running the program so I can assist :)
+
 # Update Logs
 
 - Feb. 23, 2026
@@ -45,3 +110,7 @@ Coming soon!
    - For Reset Password form:
       - Reset Password function - status: *working*.
    - All forms have *Show and Hide password* features.
+- March 10, 2026
+   - Dashboard Update:
+      - Updating your saved password is working.
+      - Add password form is done and added a function so it will show in the Dashboard.
