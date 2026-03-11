@@ -114,3 +114,7 @@ mvn clean javafx:run
    - Dashboard Update:
       - Updating your saved password is working.
       - Add password form is done and added a function so it will show in the Dashboard.
+- March 11, 2026
+   - Dashboard Update:
+      - Some quality of life fixes when switching to Add New Password form.
+      - Add new password is now working and saving to the database.

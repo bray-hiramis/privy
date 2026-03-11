@@ -29,9 +29,9 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 		return DriverManager.getConnection(databaseURL);
 	}
 	
-	/*
-	 * Login Section
-	 * 
+	/*=============================================================================
+	 * Login
+	 * ============================================================================
 	 */
 	
 	// Login logic
@@ -59,9 +59,9 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 		return null;
 	}
 	
-	/*
-	 * Dashboard Section
-	 * 
+	/*=============================================================================
+	 * Dashboard
+	 * ============================================================================
 	 */
 	
 	// fetch data to table
@@ -122,9 +122,9 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 		
 	}
 	
-	/*
-	 * Create New User Account Section
-	 * 
+	/*=============================================================================
+	 * Create New User Account
+	 * ============================================================================
 	 */
 	
 	// fetch security questions
@@ -191,11 +191,10 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 		
 	}
 	
-	/*
-	 * Forgot Password Section
-	 * 
+	/*=============================================================================
+	 * Forgot Password
+	 * ============================================================================
 	 */
-	
 	
 	public SecurityQuestions confirmEmail(String email) throws Exception {
 		
@@ -294,4 +293,33 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 		}
 	}
 	
+	/*=============================================================================
+	 * Add New Password
+	 * ============================================================================
+	 */
+	
+	public boolean addNewPasswordVault(String urlName, String url, String username, String password, int loginID) {
+		
+		String sqlSavePassword = "INSERT INTO vault (url_name, url, username, password, login_id) VALUES (?, ?, ?, ?, ?)";
+		
+		try (
+				Connection conn = getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sqlSavePassword);
+				) {
+			
+			pstmt.setString(1, urlName);
+			pstmt.setString(2, url);
+			pstmt.setString(3, username);
+			pstmt.setString(4, password);
+			pstmt.setInt(5, loginID);
+			
+			return pstmt.executeUpdate() == 1;
+			
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		
+		return false;
+		
+	}
 }

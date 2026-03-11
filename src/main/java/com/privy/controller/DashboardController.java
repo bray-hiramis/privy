@@ -1,4 +1,4 @@
-						package com.privy.controller;
+package com.privy.controller;
 
 import java.io.IOException;
 import java.net.URL;
@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -66,6 +67,9 @@ public class DashboardController implements Initializable{
     private TextField txtPasswordID;
     
     @FXML
+    private TextField txtLoginID;
+    
+    @FXML
     private Button btnHidePassword;
 
     @FXML
@@ -87,10 +91,15 @@ public class DashboardController implements Initializable{
     private Button btnUpdate;
     
     @FXML
+    private Button btnCancel;
+    
+    @FXML
     private Label lblError;
     
     @FXML
     private AnchorPane innerPasswordContainer;
+    
+    private Node originalContent;
 
     
     // stores the current user id to filter the table view for their saved passwords
@@ -100,6 +109,7 @@ public class DashboardController implements Initializable{
     
     public void setUserID(int id) {
 		this.currentUserID = id;
+		txtLoginID.setText(String.valueOf(id));
 		refreshTable();
 	}
     
@@ -133,6 +143,10 @@ public class DashboardController implements Initializable{
 		txtShowPassword.textProperty().bindBidirectional(txtPassword.textProperty());
 		txtPassword.textProperty().bindBidirectional(txtShowPassword.textProperty());
 		
+		originalContent = innerPasswordContainer.getChildren().get(0);
+		
+		txtPasswordID.setText(String.valueOf(0));
+		
 	}
 	
 	public void showPassword(ActionEvent event) {
@@ -157,9 +171,8 @@ public class DashboardController implements Initializable{
 	
 	public void btnEdit(ActionEvent event) {
 		
-		String urlName = txtURLName.getText();
-		
-		if (urlName.isEmpty()) {
+		int idString = Integer.parseInt(txtPasswordID.getText());
+		if (idString == 0) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Privy | Update Password");
 			alert.setHeaderText("All Fields Required!");
@@ -170,6 +183,9 @@ public class DashboardController implements Initializable{
 				return;
 			}
 		} else {
+			lblError.setVisible(true);
+			lblError.setText("You can now edit the fields above.");
+			lblError.setStyle("-fx-text-fill: #005000");
 			btnUpdate.setVisible(true);
 			txtURLName.setEditable(true);
 			txtURL.setEditable(true);
@@ -193,6 +209,7 @@ public class DashboardController implements Initializable{
 		
 		try {			
 			db.dashboardUpdatePassword(urlName, url, username, password, id, currentUserID);
+			refreshTable();
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Privy | Password Updated");
 			alert.setHeaderText("Password Updated!");
@@ -200,7 +217,6 @@ public class DashboardController implements Initializable{
 			Optional<ButtonType> result = alert.showAndWait();
 			
 			if (result.isPresent() && result.get() == ButtonType.OK) {				
-				refreshTable();
 				
 				btnUpdate.setVisible(false);
 				
@@ -211,6 +227,7 @@ public class DashboardController implements Initializable{
 				txtShowPassword.setEditable(false);
 				
 				btnEdit.setVisible(true);
+				lblError.setVisible(false);
 			}
 			
 		} catch (Exception e) {
@@ -222,12 +239,68 @@ public class DashboardController implements Initializable{
 	}
 	
 	public void showAddPassword(ActionEvent event) throws IOException {
-		
+	
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/add_password.fxml"));
 		Parent showPasswordForm = loader.load();
+		AddNewPasswordController addPass = loader.getController();
+		addPass.setLoginID(this.currentUserID);
 		
 		innerPasswordContainer.getChildren().clear();
 		innerPasswordContainer.getChildren().add(showPasswordForm);
+		
+		btnAdd.setVisible(false);
+		btnCancel.setVisible(true);
+		disableInputs();
+		
+		
+		
+	}
+	
+	public void closeAddPassword(ActionEvent event) throws IOException {
+		
+		innerPasswordContainer.getChildren().clear();
+		innerPasswordContainer.getChildren().add(originalContent);
+		
+		btnAdd.setVisible(true);
+		btnCancel.setVisible(false);
+		enableInputs();
+		
+	}
+	
+	// helper
+	public void disableInputs() {
+		
+		txtSearchPassword.setEditable(false);
+		txtURLName.setEditable(false);
+		txtURL.setEditable(false);
+		txtUserName.setEditable(false);
+		txtPassword.setEditable(false);
+		txtShowPassword.setEditable(false);
+		
+		txtURLName.clear();;
+		txtURL.clear();;
+		txtUserName.clear();;
+		txtPassword.clear();
+		
+		btnEdit.setDisable(true);
+		btnEdit.setVisible(true);
+		btnUpdate.setVisible(false);
+		btnDelete.setDisable(true);
+		
+		
+	}
+	
+	public void enableInputs() {
+		
+		txtSearchPassword.setEditable(true);
+		txtURLName.setEditable(true);
+		txtURL.setEditable(true);
+		txtUserName.setEditable(true);
+		txtPassword.setEditable(true);
+		txtShowPassword.setEditable(true);
+		
+		btnEdit.setDisable(false);
+		btnDelete.setDisable(false);
 		
 	}
 	
