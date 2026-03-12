@@ -3,8 +3,9 @@
 An Offline Password Manager solution for privacy geeks out there 😎
 
 # Preview
-
-![Privy](screenshots/privy_login.png)
+| Login | Dashboard |
+| :--- | :--- |
+| ![Login](/screenshots/new_login.png) | ![Dashboard](/screenshots/new_dashboard.png) |
 
 # Under Development
 
