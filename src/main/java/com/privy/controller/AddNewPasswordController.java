@@ -1,11 +1,14 @@
 package com.privy.controller;
 
+import java.net.URL;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 import com.privy.database.DatabaseHandler;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -14,7 +17,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
-public class AddNewPasswordController {
+public class AddNewPasswordController implements Initializable {
 	
 	@FXML
     private AnchorPane addNewPasswordContainer;
@@ -52,6 +55,14 @@ public class AddNewPasswordController {
     DatabaseHandler db = new DatabaseHandler();
     
     int currentLoginID;
+    
+    @Override
+	public void initialize(URL location, ResourceBundle resources) {
+    	
+    	txtShowAddPassword.textProperty().bindBidirectional(txtHiddenAddPassword.textProperty());
+    	txtHiddenAddPassword.textProperty().bindBidirectional(txtShowAddPassword.textProperty());;
+		
+	}
 	
 	public void btnSaveNewPassword(ActionEvent event) {
 		
@@ -83,6 +94,7 @@ public class AddNewPasswordController {
 			Optional<ButtonType> result = alert.showAndWait();
 			
 			if (result.isPresent() && result.get() == ButtonType.OK) {
+				clearInputs();
 				return;
 			}
 			
@@ -92,10 +104,41 @@ public class AddNewPasswordController {
 		
 	}
 	
+	public void showPassword(ActionEvent event) {
+		
+		txtHiddenAddPassword.setVisible(false);
+		btnShowAddPassword.setVisible(false);
+		
+		txtShowAddPassword.setVisible(true);
+		btnHideAddPassword.setVisible(true);
+		
+	}
+	
+	public void hidePassword(ActionEvent event) {
+		
+		txtHiddenAddPassword.setVisible(true);
+		btnShowAddPassword.setVisible(true);
+		
+		txtShowAddPassword.setVisible(false);
+		btnHideAddPassword.setVisible(false);
+		
+	}
+	
+	//helper
+	public void clearInputs() {
+		
+		txtAddUrlName.clear();
+		txtAddUrl.clear();
+		txtAddUsername.clear();
+		txtHiddenAddPassword.clear();
+		txtShowAddPassword.clear();
+		
+	}
+	
 	// Setter
 	public void setLoginID(int loginID) {
 		this.currentLoginID = loginID;
 		txtLoginID.setText(String.valueOf(loginID));
 	}
-
+	
 }

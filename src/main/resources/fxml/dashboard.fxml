@@ -32,7 +32,7 @@
                         <TextField fx:id="txtSearchPassword" layoutX="92.0" layoutY="28.0" prefHeight="37.0" prefWidth="619.0" promptText="Search Passwords" />
                         <AnchorPane layoutX="1066.0" layoutY="-63.0" maxHeight="200.0" maxWidth="419.0" prefHeight="95.0" prefWidth="419.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <MenuButton fx:id="menuUsername" layoutX="24.0" layoutY="26.0" mnemonicParsing="false" prefHeight="95.0" prefWidth="419.0" styleClass="profile" text="Name of the user" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <MenuButton fx:id="menuUsername" layoutX="24.0" layoutY="26.0" mnemonicParsing="false" prefHeight="95.0" prefWidth="290.0" styleClass="profile" text="Name of the user" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <items>
                                   <MenuItem mnemonicParsing="false" text="Action 1" />
                                   <MenuItem mnemonicParsing="false" text="Action 2" />
@@ -110,7 +110,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button fx:id="btnDelete" layoutX="257.0" layoutY="417.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="151.0" styleClass="btnDelete" text="Delete">
+                              <Button fx:id="btnDelete" layoutX="257.0" layoutY="417.0" mnemonicParsing="false" onAction="#btnDelete" prefHeight="44.0" prefWidth="151.0" styleClass="btnDelete" text="Delete">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>

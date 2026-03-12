@@ -2,6 +2,7 @@ package com.privy.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -21,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -101,17 +103,10 @@ public class DashboardController implements Initializable{
     
     private Node originalContent;
 
-    
     // stores the current user id to filter the table view for their saved passwords
     private int currentUserID;
     
     private DatabaseHandler db = new DatabaseHandler();
-    
-    public void setUserID(int id) {
-		this.currentUserID = id;
-		txtLoginID.setText(String.valueOf(id));
-		refreshTable();
-	}
     
     public void refreshTable() {
 		ObservableList<Vault> dataList = db.fetchDBToTable(this.currentUserID);
@@ -143,9 +138,22 @@ public class DashboardController implements Initializable{
 		txtShowPassword.textProperty().bindBidirectional(txtPassword.textProperty());
 		txtPassword.textProperty().bindBidirectional(txtShowPassword.textProperty());
 		
+		// Store original content
 		originalContent = innerPasswordContainer.getChildren().get(0);
 		
+		// Set the value of Password ID to zero upon form load
 		txtPasswordID.setText(String.valueOf(0));
+		
+		// menu button
+		MenuItem logout = new MenuItem("Logout");
+		
+		
+		List<MenuItem> items = List.of(
+				new MenuItem("Favorites (Soon!)")
+//				new MenuItem("Logout")
+		);
+		menuUsername.getItems().clear();
+		menuUsername.getItems().addAll(items);
 		
 	}
 	
@@ -169,6 +177,7 @@ public class DashboardController implements Initializable{
 		
 	}
 	
+	// Enable editing mode
 	public void btnEdit(ActionEvent event) {
 		
 		int idString = Integer.parseInt(txtPasswordID.getText());
@@ -199,6 +208,7 @@ public class DashboardController implements Initializable{
 		
 	}
 	
+	// Update Password
 	public void btnUpdate(ActionEvent event) {
 		
 		int id = Integer.parseInt(txtPasswordID.getText());
@@ -238,6 +248,46 @@ public class DashboardController implements Initializable{
 		
 	}
 	
+	// Delete Password
+	public void btnDelete(ActionEvent event) {
+		
+		int id = Integer.parseInt(txtPasswordID.getText());
+		if (id == 0) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Privy | Password Deletion");
+			alert.setHeaderText("All Fields Required!");
+			alert.setContentText("Please select on the table the password you want to delete.");
+			Optional<ButtonType> result = alert.showAndWait();
+			
+			if (result.isPresent() && result.get() == ButtonType.OK) {
+				return;
+			}
+		}
+		
+		try {
+			
+			
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Privy | Password Deletion");
+			alert.setHeaderText("You are about to delete a record!");
+			alert.setContentText("Are you sure you want to delete this record?");
+			Optional<ButtonType> result = alert.showAndWait();
+			
+			if (result.isPresent() && result.get() == ButtonType.OK) {
+				db.dashboardDeletePassword(id);
+				refreshTable();
+				clearInputs();
+				txtPasswordID.setText(String.valueOf(0));
+			}
+			
+		} catch (Exception e) {
+			lblError.setText(e.getMessage());
+			lblError.setStyle("-fx-text-fill: red;");
+			lblError.setVisible(true);
+		}
+		
+	}
+	
 	public void showAddPassword(ActionEvent event) throws IOException {
 	
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/add_password.fxml"));
@@ -250,9 +300,11 @@ public class DashboardController implements Initializable{
 		
 		btnAdd.setVisible(false);
 		btnCancel.setVisible(true);
+		lblError.setVisible(false);
+		
+		txtPasswordID.setText(String.valueOf(0));
+		
 		disableInputs();
-		
-		
 		
 	}
 	
@@ -264,6 +316,7 @@ public class DashboardController implements Initializable{
 		btnAdd.setVisible(true);
 		btnCancel.setVisible(false);
 		enableInputs();
+		refreshTable();
 		
 	}
 	
@@ -287,7 +340,6 @@ public class DashboardController implements Initializable{
 		btnUpdate.setVisible(false);
 		btnDelete.setDisable(true);
 		
-		
 	}
 	
 	public void enableInputs() {
@@ -304,9 +356,26 @@ public class DashboardController implements Initializable{
 		
 	}
 	
+	public void clearInputs() {
+		
+		txtPasswordID.clear();
+		txtURLName.clear();
+		txtURL.clear();
+		txtUserName.clear();
+		txtPassword.clear();
+		
+	}
+	
 	// Getters
 	public void getMenuUsername(String name) {
 		menuUsername.setText(name);
+	}
+	
+	// Setters
+	public void setUserID(int id) {
+		this.currentUserID = id;
+		txtLoginID.setText(String.valueOf(id));
+		refreshTable();
 	}
 	
 }

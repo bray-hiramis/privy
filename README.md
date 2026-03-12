@@ -118,3 +118,7 @@ mvn clean javafx:run
    - Dashboard Update:
       - Some quality of life fixes when switching to Add New Password form.
       - Add new password is now working and saving to the database.
+- March 12, 2026
+   - Dashboard Update:
+      - Quality of life fixes again when switching to Add New Password form.
+      - Deleting a saved password is now working.

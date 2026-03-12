@@ -30,7 +30,7 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 	}
 	
 	/*=============================================================================
-	 * Login
+	 * 									Login
 	 * ============================================================================
 	 */
 	
@@ -60,7 +60,7 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 	}
 	
 	/*=============================================================================
-	 * Dashboard
+	 * 								Dashboard
 	 * ============================================================================
 	 */
 	
@@ -97,6 +97,7 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 		
 	}
 	
+	// Update saved password
 	public boolean dashboardUpdatePassword(String urlName, String url, String username, String password, int id, int loginID) throws Exception {
 		
 		String sqlUpdatePassword = "UPDATE vault SET url_name = ?, url = ?, username = ?, password = ? WHERE id = ? AND login_id = ?";
@@ -122,8 +123,28 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 		
 	}
 	
+	// Delete saved password
+	public boolean dashboardDeletePassword(int id) throws Exception {
+		
+		String sqlDeletePassword = "DELETE FROM vault WHERE id = ?";
+		
+		try (
+				Connection conn = getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sqlDeletePassword);
+				) {
+			
+			pstmt.setInt(1, id);
+			
+			return pstmt.executeUpdate() == 1;
+			
+		} catch (SQLException e) {
+			throw new SQLException(e.getMessage());
+		}
+		
+	}
+	
 	/*=============================================================================
-	 * Create New User Account
+	 * 						Create New User Account
 	 * ============================================================================
 	 */
 	
@@ -192,7 +213,7 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 	}
 	
 	/*=============================================================================
-	 * Forgot Password
+	 * 							Forgot Password
 	 * ============================================================================
 	 */
 	
@@ -294,7 +315,7 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 	}
 	
 	/*=============================================================================
-	 * Add New Password
+	 * 							Add New Password
 	 * ============================================================================
 	 */
 	
