@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import com.privy.database.DatabaseHandler;
+import com.privy.helper.Navigation;
 import com.privy.model.Vault;
 
 import javafx.collections.ObservableList;
@@ -19,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
@@ -29,6 +31,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class DashboardController implements Initializable{
 
@@ -146,14 +149,70 @@ public class DashboardController implements Initializable{
 		
 		// menu button
 		MenuItem logout = new MenuItem("Logout");
+		logout.setOnAction(e -> {
+			
+			try {
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Privy | Logout");
+				alert.setHeaderText("You are about to logout");
+				alert.setContentText("Are you sure you want to logout?");
+				ButtonType yesLogout = new ButtonType("Logout", ButtonData.YES);
+				ButtonType no = new ButtonType("No", ButtonData.NO);
+				alert.getButtonTypes().setAll(no, yesLogout);
+				
+				Optional<ButtonType> result = alert.showAndWait();
+				if (result.isPresent() && result.get() == yesLogout) {					
+					Stage stage = (Stage) menuUsername.getScene().getWindow();
+					Navigation.navigateTo(stage, "/fxml/login.fxml", "Privy | Password Manager");
+					stage.setResizable(false);
+					return;
+				}
+				
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+			
+		});
 		
 		
 		List<MenuItem> items = List.of(
-				new MenuItem("Favorites (Soon!)")
-//				new MenuItem("Logout")
+				new MenuItem("Favorites (Soon!)"),
+				logout
 		);
+		
 		menuUsername.getItems().clear();
 		menuUsername.getItems().addAll(items);
+		
+	}
+	
+	// Logout using X button of the window
+	public void logoutOnX(Stage stage) {
+		
+		stage.setOnCloseRequest(e -> {
+			
+			e.consume();
+		
+			try {
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Privy | Logout");
+				alert.setHeaderText("You are about to logout");
+				alert.setContentText("Are you sure you want to logout?");
+				ButtonType yesLogout = new ButtonType("Logout", ButtonData.YES);
+				ButtonType no = new ButtonType("No", ButtonData.NO);
+				alert.getButtonTypes().setAll(no, yesLogout);
+				
+				Optional<ButtonType> result = alert.showAndWait();
+				
+				if (result.isPresent() && result.get() == yesLogout) {
+					Navigation.navigateTo(stage, "/fxml/login.fxml", "Privy | Password Manager");
+					stage.setResizable(false);
+					return;
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+			
+		});
 		
 	}
 	
@@ -287,6 +346,20 @@ public class DashboardController implements Initializable{
 		}
 		
 	}
+	
+	// Search event method
+//	public void txtfieldSearchURL(ActionEvent event) {
+//		
+//		String searchBox = txtSearchPassword.getText().toLowerCase().trim();
+//		
+//		try {
+//			db.dashboardSearchURL(this.currentUserID,searchBox);
+//			refreshTable();
+//		} catch (Exception e) {
+//			System.err.println(e.getMessage());
+//		}
+//		
+//	}
 	
 	public void showAddPassword(ActionEvent event) throws IOException {
 	

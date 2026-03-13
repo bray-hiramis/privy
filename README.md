@@ -123,3 +123,6 @@ mvn clean javafx:run
    - Dashboard Update:
       - Quality of life fixes again when switching to Add New Password form.
       - Deleting a saved password is now working.
+- March 13, 2026
+   - Dashboard Update:
+      - Work on the logout function.

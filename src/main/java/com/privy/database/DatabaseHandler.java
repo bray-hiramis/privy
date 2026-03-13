@@ -143,6 +143,30 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 		
 	}
 	
+	// Search Password
+//	public String dashboardSearchURL(int login_id, String search) {
+//		
+//		String sqlSearch = "SELECT url_name, url FROM vault WHERE login_id = ? AND LOWER(url) LIKE ?";
+//		
+//		try (
+//				Connection conn = getConnection();
+//				PreparedStatement pstmt = conn.prepareStatement(sqlSearch);
+//				) {
+//			
+//			pstmt.setInt(1, login_id);
+//			pstmt.setString(2,"%" + search + "%");
+//			ResultSet rs = pstmt.executeQuery();
+//			if (rs.next()) {
+//				return search;
+//			}
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return null;
+//	}
+	
 	/*=============================================================================
 	 * 						Create New User Account
 	 * ============================================================================

@@ -61,11 +61,16 @@ public class LoginController implements Initializable{
 			
 			try {				
 				Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+				stage.setOnCloseRequest(null);
+				
 				FXMLLoader loader = Navigation.getLoader(stage, "/fxml/dashboard.fxml", "Privy - Vault");
-				DashboardController dashboard = new DashboardController();
-				dashboard = loader.getController();
+				DashboardController dashboard = loader.getController();
+				
 				dashboard.setUserID(currentId);
 				dashboard.getMenuUsername("Welcome " + username);
+				
+				dashboard.logoutOnX(stage);
+				
 				stage.setMinWidth(1280);
 				stage.setMinHeight(720);
 				stage.setResizable(true);
