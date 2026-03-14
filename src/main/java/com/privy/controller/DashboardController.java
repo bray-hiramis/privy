@@ -2,6 +2,7 @@ package com.privy.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -10,7 +11,10 @@ import com.privy.database.DatabaseHandler;
 import com.privy.helper.Navigation;
 import com.privy.model.Vault;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -111,9 +115,37 @@ public class DashboardController implements Initializable{
     
     private DatabaseHandler db = new DatabaseHandler();
     
+    ObservableList<Vault> masterDataList = FXCollections.observableArrayList();
+    
     public void refreshTable() {
-		ObservableList<Vault> dataList = db.fetchDBToTable(this.currentUserID);
-		tablePassword.setItems(dataList);		
+		masterDataList = db.fetchDBToTable(currentUserID);	
+		
+		FilteredList<Vault> filteredData = new FilteredList<>(masterDataList, b -> true);
+		
+		txtSearchPassword.textProperty().addListener((observable, oldValue, newValue) -> {
+			
+			filteredData.setPredicate(vaultItem -> {
+				if (newValue == null || newValue.isEmpty()) {
+	                return true;
+	            }
+				
+				String lowerCaseFilter = newValue.toLowerCase();
+				
+				if (vaultItem.getUrl().toLowerCase().contains(lowerCaseFilter)) {
+	                return true; // Filter matches URL
+	            } else if (vaultItem.getUrlName().toLowerCase().contains(lowerCaseFilter)) {
+	                return true; // Filter matches URL Name
+	            }
+				
+				return false;
+			});
+			
+		});
+		
+		SortedList<Vault> sortedData = new SortedList<>(filteredData);
+	    sortedData.comparatorProperty().bind(tablePassword.comparatorProperty());
+	    
+	    tablePassword.setItems(sortedData);
 	}
 
 	@Override
@@ -346,20 +378,6 @@ public class DashboardController implements Initializable{
 		}
 		
 	}
-	
-	// Search event method
-//	public void txtfieldSearchURL(ActionEvent event) {
-//		
-//		String searchBox = txtSearchPassword.getText().toLowerCase().trim();
-//		
-//		try {
-//			db.dashboardSearchURL(this.currentUserID,searchBox);
-//			refreshTable();
-//		} catch (Exception e) {
-//			System.err.println(e.getMessage());
-//		}
-//		
-//	}
 	
 	public void showAddPassword(ActionEvent event) throws IOException {
 	

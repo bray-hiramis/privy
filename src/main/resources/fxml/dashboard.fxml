@@ -29,7 +29,7 @@
                               <Image url="@../logo/privy-logo.png" />
                            </image>
                         </ImageView>
-                        <TextField fx:id="txtSearchPassword" layoutX="92.0" layoutY="28.0" onKeyReleased="#txtfieldSearchURL" prefHeight="37.0" prefWidth="619.0" promptText="Search URL" />
+                        <TextField fx:id="txtSearchPassword" layoutX="92.0" layoutY="28.0" prefHeight="37.0" prefWidth="619.0" promptText="Search URL" />
                         <AnchorPane layoutX="1066.0" layoutY="-63.0" maxHeight="200.0" maxWidth="419.0" prefHeight="95.0" prefWidth="419.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <MenuButton fx:id="menuUsername" layoutX="24.0" layoutY="26.0" mnemonicParsing="false" prefHeight="95.0" prefWidth="290.0" styleClass="profile" text="Name of the user" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

@@ -126,3 +126,6 @@ mvn clean javafx:run
 - March 13, 2026
    - Dashboard Update:
       - Work on the logout function.
+- March 14, 2026
+   - Dashboard Update:
+      - Dynamic Search is now working.
