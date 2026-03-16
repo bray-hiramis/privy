@@ -238,3 +238,31 @@
 .forgot-password-btn:hover {
    -fx-background-color: #008000;
 }
+
+/* Update Master Password */
+.updateTitleText {
+   -fx-font-size: 20px;
+   -fx-text-fill: #005000;
+}
+
+.updateLabelText {
+   -fx-font-size: 16px;
+   -fx-text-fill: #005000;
+}
+
+.updateTextFields {
+   -fx-background-color: transparent;
+   -fx-background-radius: 20px;
+   -fx-border-radius: 20px;
+   -fx-border-color: #005000;
+   -fx-padding: 10px;
+}
+
+.updateBtn {
+   -fx-background-color: #005000;
+   -fx-background-radius: 20px;
+   -fx-border-radius: 20px;
+   -fx-text-fill: #fff;
+   -fx-font-size: 16px;
+   -fx-padding: 10px;
+}

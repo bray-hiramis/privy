@@ -179,7 +179,34 @@ public class DashboardController implements Initializable{
 		// Set the value of Password ID to zero upon form load
 		txtPasswordID.setText(String.valueOf(0));
 		
-		// menu button
+		// menu buttons
+		MenuItem changeMasterPassword = new MenuItem("Change Master Password");
+		changeMasterPassword.setOnAction(e -> {
+			
+			try {
+				
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/update_password.fxml"));
+				Parent showUpdatePassword = loader.load();
+				ChangeMasterPasswordController changePass = loader.getController();
+				changePass.setLoginID(this.currentUserID);
+				
+				innerPasswordContainer.getChildren().clear();
+				innerPasswordContainer.getChildren().add(showUpdatePassword);
+				
+				btnAdd.setVisible(false);
+				btnCancel.setVisible(true);
+				lblError.setVisible(false);
+				
+				txtPasswordID.setText(String.valueOf(0));
+				
+				disableInputs();
+				
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+			
+		});
+		
 		MenuItem logout = new MenuItem("Logout");
 		logout.setOnAction(e -> {
 			
@@ -206,9 +233,10 @@ public class DashboardController implements Initializable{
 			
 		});
 		
-		
+		// Menu button list
 		List<MenuItem> items = List.of(
 				new MenuItem("Favorites (Soon!)"),
+				changeMasterPassword,
 				logout
 		);
 		
@@ -257,7 +285,7 @@ public class DashboardController implements Initializable{
 		btnHidePassword.setVisible(true);
 		
 	}
-	
+
 	public void hidePassword(ActionEvent event) {
 		
 		txtPassword.setVisible(true);
@@ -379,6 +407,7 @@ public class DashboardController implements Initializable{
 		
 	}
 	
+	// Opening the add_password.fxml
 	public void showAddPassword(ActionEvent event) throws IOException {
 	
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/add_password.fxml"));
@@ -399,6 +428,7 @@ public class DashboardController implements Initializable{
 		
 	}
 	
+	// Closing the add_password.fxml
 	public void closeAddPassword(ActionEvent event) throws IOException {
 		
 		innerPasswordContainer.getChildren().clear();
@@ -408,6 +438,14 @@ public class DashboardController implements Initializable{
 		btnCancel.setVisible(false);
 		enableInputs();
 		refreshTable();
+		
+	}
+	
+	public void showUpdateMasterPassword(ActionEvent event) throws IOException {
+		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/update_password.fxml"));
+		Parent showUpdateMasterPasswordForm = loader.load();
+		
 		
 	}
 	
