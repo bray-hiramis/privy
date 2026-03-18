@@ -131,3 +131,5 @@ mvn clean javafx:run
       - Dynamic Search is now working.
 - March 16, 2026
    - Added *Change Master Password* form added a method for it to appear in the Dashboard form.
+- March 18, 2026
+   - *Change Master Password* button is now working and updating the Master Password of the user.

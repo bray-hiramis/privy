@@ -343,4 +343,58 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 		return false;
 		
 	}
+	
+	/*=============================================================================
+	 * 						Change Master Password
+	 * ============================================================================
+	 */
+	
+	public boolean updatePassword(String newPassword, String currentPassowrd, int loginID) throws Exception {
+		
+		String sqlSelectCurrentPassword = "SELECT * FROM users WHERE password = ? AND id = ?";
+		String sqlUpdateMasterPassword = "UPDATE users SET password = ? WHERE id = ?";
+		
+		hashPassword = new HashPassword(currentPassowrd);
+		String hexCurrentPasswordString = hashPassword.getPassword();
+
+		try (
+				Connection conn = getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sqlSelectCurrentPassword);
+				) {
+			
+			pstmt.setString(1, hexCurrentPasswordString);
+			pstmt.setInt(2, loginID);
+			ResultSet rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				try (
+						Connection conn2 = getConnection();
+						PreparedStatement pstmt2 = conn2.prepareStatement(sqlUpdateMasterPassword);
+						) {
+					
+					hashPassword = new HashPassword(newPassword);
+					String hexNewPassword = hashPassword.getPassword();
+					
+					pstmt2.setString(1, hexNewPassword);
+					pstmt2.setInt(2, loginID);
+					
+					return pstmt2.executeUpdate() == 1;
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			} else {
+				throw new Exception("Current Password do not match on the records.");				
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			
+		}
+		
+		return false;
+		
+	}
 }

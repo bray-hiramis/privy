@@ -266,3 +266,9 @@
    -fx-font-size: 16px;
    -fx-padding: 10px;
 }
+
+.updateLabelError {
+   -fx-text-fill: red;
+   -fx-font-size: 16px;
+   -fx-font-weight: 700;
+}
