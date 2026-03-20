@@ -314,7 +314,11 @@ public class DashboardController implements Initializable{
 			lblError.setVisible(true);
 			lblError.setText("You can now edit the fields above.");
 			lblError.setStyle("-fx-text-fill: #005000");
+
 			btnUpdate.setVisible(true);
+			btnAdd.setVisible(false);
+			btnCancel.setVisible(true);
+
 			txtURLName.setEditable(true);
 			txtURL.setEditable(true);
 			txtUserName.setEditable(true);
@@ -436,16 +440,15 @@ public class DashboardController implements Initializable{
 		
 		btnAdd.setVisible(true);
 		btnCancel.setVisible(false);
-		enableInputs();
+		btnEdit.setDisable(false);
+		btnEdit.setVisible(true);
+		btnUpdate.setVisible(false);
+		btnDelete.setDisable(false);
+		lblError.setVisible(false);
+		lblError.setStyle("-fx-text-fill: red;");
+		txtPasswordID.setText(String.valueOf(0));
+		clearInputs();
 		refreshTable();
-		
-	}
-	
-	public void showUpdateMasterPassword(ActionEvent event) throws IOException {
-		
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/update_password.fxml"));
-		Parent showUpdateMasterPasswordForm = loader.load();
-		
 		
 	}
 	
@@ -487,7 +490,6 @@ public class DashboardController implements Initializable{
 	
 	public void clearInputs() {
 		
-		txtPasswordID.clear();
 		txtURLName.clear();
 		txtURL.clear();
 		txtUserName.clear();

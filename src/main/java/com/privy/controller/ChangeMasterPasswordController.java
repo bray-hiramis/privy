@@ -17,6 +17,24 @@ public class ChangeMasterPasswordController implements Initializable {
 	
 	@FXML
     private Button btnChangePassword;
+	
+	@FXML
+    private Button btnHide1;
+
+    @FXML
+    private Button btnHide2;
+
+    @FXML
+    private Button btnHide3;
+
+    @FXML
+    private Button btnShow1;
+
+    @FXML
+    private Button btnShow2;
+
+    @FXML
+    private Button btnShow3;
 
 	@FXML
 	private PasswordField txtCurrentPassword;
@@ -26,6 +44,15 @@ public class ChangeMasterPasswordController implements Initializable {
 	
     @FXML
     private PasswordField txtConfirmNewPassword;
+    
+    @FXML
+    private TextField txtShowCurrentPassword;
+    
+    @FXML
+    private TextField txtShowNewPassword;
+    
+    @FXML
+    private TextField txtShowConfirmNewPassword;
     
     @FXML
     private TextField txtLoginID;
@@ -40,7 +67,74 @@ public class ChangeMasterPasswordController implements Initializable {
 	
 	public void initialize(URL location, ResourceBundle resources) {
 		
+		txtCurrentPassword.textProperty().bindBidirectional(txtShowCurrentPassword.textProperty());
+		txtShowCurrentPassword.textProperty().bindBidirectional(txtCurrentPassword.textProperty());
 		
+		txtNewPassword.textProperty().bindBidirectional(txtShowNewPassword.textProperty());
+		txtShowNewPassword.textProperty().bindBidirectional(txtNewPassword.textProperty());
+		
+		txtConfirmNewPassword.textProperty().bindBidirectional(txtShowConfirmNewPassword.textProperty());
+		txtShowConfirmNewPassword.textProperty().bindBidirectional(txtConfirmNewPassword.textProperty());
+		
+	}
+	
+	public void showCurrentPassword(ActionEvent event) {
+		
+		txtShowCurrentPassword.setVisible(true);
+		btnHide1.setVisible(true);
+		
+		txtCurrentPassword.setVisible(false);
+		btnShow1.setVisible(false);
+		
+	}
+	
+	public void hideCurrentPassword(ActionEvent event) {
+		
+		txtShowCurrentPassword.setVisible(false);
+		btnHide1.setVisible(false);
+		
+		txtCurrentPassword.setVisible(true);
+		btnShow1.setVisible(true);
+		
+	}
+	
+	public void showNewPassword(ActionEvent event) {
+		
+		txtShowNewPassword.setVisible(true);
+		btnHide2.setVisible(true);
+		
+		txtNewPassword.setVisible(false);
+		btnShow2.setVisible(false);
+		
+	}
+	
+	public void hideNewPassword(ActionEvent event) {
+		
+		txtShowNewPassword.setVisible(false);
+		btnHide2.setVisible(false);
+		
+		txtNewPassword.setVisible(true);
+		btnShow2.setVisible(true);
+		
+	}
+	
+	public void showConfirmPassword(ActionEvent event) {
+		
+		txtShowConfirmNewPassword.setVisible(true);
+		btnHide3.setVisible(true);
+		
+		txtConfirmNewPassword.setVisible(false);
+		btnShow3.setVisible(false);
+		
+	}
+	
+	public void hideConfirmPassword(ActionEvent event) {
+		
+		txtShowConfirmNewPassword.setVisible(false);
+		btnHide3.setVisible(false);
+		
+		txtConfirmNewPassword.setVisible(true);
+		btnShow3.setVisible(true);
 		
 	}
 	
