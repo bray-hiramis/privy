@@ -133,6 +133,8 @@ mvn clean javafx:run
    - Added *Change Master Password* form added a method for it to appear in the Dashboard form.
 - March 18, 2026
    - *Change Master Password* button is now working and updating the Master Password of the user.
-- March 20, 2056
+- March 20, 2026
    - Added Show or Hide password buttons in the Change Master Password form.
-   - Fix logical errors in the Cancel Button in the Dashboard form.
+   - 
+- March 21, 2026
+   - Implemented the Encryption method for the Add new password form.
