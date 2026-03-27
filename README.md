@@ -135,6 +135,8 @@ mvn clean javafx:run
    - *Change Master Password* button is now working and updating the Master Password of the user.
 - March 20, 2026
    - Added Show or Hide password buttons in the Change Master Password form.
-   - 
 - March 21, 2026
    - Implemented the Encryption method for the Add new password form.
+- March 27, 2026
+   - Refactor the AES Encryption and Decryption method.
+   - Implemented Decryption method when revealing password.

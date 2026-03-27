@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import com.privy.database.DatabaseHandler;
+import com.privy.helper.EncryptionConfig;
 import com.privy.helper.Navigation;
 import com.privy.model.User;
 
@@ -48,7 +49,7 @@ public class LoginController implements Initializable{
 		
 	}
 	
-	public void login(ActionEvent event) {
+	public void login(ActionEvent event) throws Exception {
 		String username = txtUsername.getText().trim();
 		String password = txtPassword.getText();
 		
@@ -58,8 +59,9 @@ public class LoginController implements Initializable{
 		if (loggedInUser != null) {
 			System.out.println("You are now login!");
 			int currentId = loggedInUser.getId();
+			EncryptionConfig.getKeyFromUserID(currentId);
 			
-			try {				
+			try {
 				Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 				stage.setOnCloseRequest(null);
 				

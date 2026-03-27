@@ -7,10 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.crypto.SecretKey;
-import javax.crypto.spec.GCMParameterSpec;
-
-import com.privy.helper.EncryptionPassword;
+import com.privy.helper.EncryptionConfig;
 import com.privy.helper.HashPassword;
 import com.privy.helper.SecurityQuestions;
 import com.privy.model.NewUser;
@@ -110,10 +107,12 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 				Connection conn = getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sqlUpdatePassword);) {
 			
+			String encryptPassword = EncryptionConfig.encrypt(password);
+			
 			pstmt.setString(1, urlName);
 			pstmt.setString(2, url);
 			pstmt.setString(3, username);
-			pstmt.setString(4, password);
+			pstmt.setString(4, encryptPassword);
 			
 			pstmt.setInt(5, id);
 			pstmt.setInt(6, loginID);
@@ -332,18 +331,17 @@ private static final String databaseURL= "jdbc:sqlite:privy.db";
 				PreparedStatement pstmt = conn.prepareStatement(sqlSavePassword);
 				) {
 			
-			SecretKey sk = EncryptionPassword.generateKey(128);
-			GCMParameterSpec gcm = EncryptionPassword.generateIv();
-			String algorithm = "AES/GCM/NoPadding";
-			String encryptedText = EncryptionPassword.encrypt(algorithm, password, sk, gcm);
+			String encryptPassword = EncryptionConfig.encrypt(password);
 			
 			pstmt.setString(1, urlName);	
 			pstmt.setString(2, url);
 			pstmt.setString(3, username);
-			pstmt.setString(4, encryptedText);
+			pstmt.setString(4, encryptPassword);
 			pstmt.setInt(5, loginID);
 			
 			return pstmt.executeUpdate() == 1;
+			
+			
 			
 		} catch (Exception e) {
 			System.err.println(e.getMessage());

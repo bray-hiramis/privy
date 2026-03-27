@@ -2,12 +2,12 @@ package com.privy.controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import com.privy.database.DatabaseHandler;
+import com.privy.helper.EncryptionConfig;
 import com.privy.helper.Navigation;
 import com.privy.model.Vault;
 
@@ -165,6 +165,15 @@ public class DashboardController implements Initializable{
 				txtURL.setText(newSelection.getUrl());
 				txtUserName.setText(newSelection.getUserName());
 				txtPassword.setText(newSelection.getPassword());
+				
+				// CLEAR THE CACHE when switching rows
+//		        txtShowPassword.setText(""); 
+		        
+		        // Ensure we start in 'hidden' mode for the new selection
+		        txtPassword.setVisible(true);
+		        txtShowPassword.setVisible(false);
+		        btnHidePassword.setVisible(false);
+		        btnShowPassword.setVisible(true);
 			}
 			
 		});
@@ -220,7 +229,8 @@ public class DashboardController implements Initializable{
 				alert.getButtonTypes().setAll(no, yesLogout);
 				
 				Optional<ButtonType> result = alert.showAndWait();
-				if (result.isPresent() && result.get() == yesLogout) {					
+				if (result.isPresent() && result.get() == yesLogout) {
+					EncryptionConfig.clearMasterKey();
 					Stage stage = (Stage) menuUsername.getScene().getWindow();
 					Navigation.navigateTo(stage, "/fxml/login.fxml", "Privy | Password Manager");
 					stage.setResizable(false);
@@ -264,6 +274,7 @@ public class DashboardController implements Initializable{
 				Optional<ButtonType> result = alert.showAndWait();
 				
 				if (result.isPresent() && result.get() == yesLogout) {
+					EncryptionConfig.clearMasterKey();
 					Navigation.navigateTo(stage, "/fxml/login.fxml", "Privy | Password Manager");
 					stage.setResizable(false);
 					return;
@@ -284,6 +295,11 @@ public class DashboardController implements Initializable{
 		txtShowPassword.setVisible(true);
 		btnHidePassword.setVisible(true);
 		
+		// Decrypting password
+		String encryptedPassword = txtPassword.getText();
+		String decryptedPassword = EncryptionConfig.decrypt(encryptedPassword);
+		txtShowPassword.setText(decryptedPassword);
+		
 	}
 
 	public void hidePassword(ActionEvent event) {
@@ -293,6 +309,11 @@ public class DashboardController implements Initializable{
 		
 		txtShowPassword.setVisible(false);
 		btnHidePassword.setVisible(false);
+		
+		// Re-encrypting password
+		String decryptedPassword = txtShowPassword.getText();
+		String encryptPassword = EncryptionConfig.encrypt(decryptedPassword);
+		txtPassword.setText(encryptPassword);
 		
 	}
 	
@@ -361,6 +382,9 @@ public class DashboardController implements Initializable{
 				
 				btnEdit.setVisible(true);
 				lblError.setVisible(false);
+				
+				btnCancel.setVisible(false);
+				btnAdd.setVisible(true);
 			}
 			
 		} catch (Exception e) {
